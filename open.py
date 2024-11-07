@@ -17,8 +17,16 @@ class OpenWidget(QMainWindow):
     def open_registration(self):
         subprocess.run(['python', 'registration.py'])
 
+        ex.hide()
+        subprocess.run(['python', 'work.py'])
+        sys.exit(app.exec())
+
     def open_authorization(self):
         subprocess.run(['python', 'authorization.py'])
+
+        ex.hide()
+        subprocess.run(['python', 'work.py'])
+        sys.exit(app.exec())
 
 
 def except_hook(cls, exception, traceback):

@@ -1,7 +1,11 @@
 import sys
 
+import sqlite3
+
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QDialog
+
+import subprocess
 
 
 class RegistrationWidget(QDialog):
@@ -17,7 +21,33 @@ class RegistrationWidget(QDialog):
         login = self.login_edit.text()
         password = self.password_edit.text()
 
+        con = sqlite3.connect("users.db")
 
+        with con:
+            data = con.execute("""SELECT * FROM clients""")
+
+        # проверка на то, есть ли клиент с таким login-ом
+        flag = True
+        for row in data:
+            if row[2] == login:
+                flag = False
+                break
+
+        if flag:
+            sql = """INSERT INTO clients 
+                    (f_name, l_name, login, password) values(?, ?, ?, ?)"""
+
+            data = (first_name, last_name, login, password,)
+
+            # добавляет пользователя
+            with con:
+                con.execute(sql, data)
+
+            sys.exit(app.exec())
+        else:
+            file = __file__
+
+            subprocess.run(['python', 'error.py', file])
 
 
 def except_hook(cls, exception, traceback):
