@@ -32,6 +32,12 @@ data = ("Админ", "Админов", "admin", "1234",)
 with con:
     con.execute(sql, data)
 
+data = ("", "", "", "",)
+
+# добавляет заглушку от пустых регистраций
+with con:
+    con.execute(sql, data)
+
 # вывод всех пользователей и их данных
 with con:
     data = con.execute("""SELECT * FROM clients""")
