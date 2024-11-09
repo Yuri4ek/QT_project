@@ -7,6 +7,11 @@ from PyQt6.QtWidgets import QApplication, QDialog
 
 import subprocess
 
+"""
+    Этот класс предназначен для авторизации (входа в систему), если аккаунт уже 
+    находится в БД
+"""
+
 
 class AuthorizationWidget(QDialog):
     def __init__(self):
@@ -28,10 +33,13 @@ class AuthorizationWidget(QDialog):
         # пароль
         flag = False
         for row in data:
-            if row[2] == login and row[3] == password:
+            if row[2] == login and row[3] == password and \
+                    login != "" and password != "":
                 flag = True
                 break
 
+        # если существует пользователь с таким логином и паролем,
+        # то он заходит в систему иначе выйдет окно ошибки
         if flag:
             # добавляет логин пользователя для дальнейшей работы
             with open("This moment client.txt", mode="w+") as f:

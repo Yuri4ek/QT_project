@@ -7,6 +7,10 @@ from PyQt6.QtWidgets import QApplication, QDialog
 
 import subprocess
 
+"""
+    Этот класс предназначен для регистрации (добавления нового аккаунта в БД)
+"""
+
 
 class RegistrationWidget(QDialog):
     def __init__(self):
@@ -33,6 +37,8 @@ class RegistrationWidget(QDialog):
                 flag = False
                 break
 
+        # если пользователя с таким логином нету, то создается новый аккаунт
+        # иначе выйдет окно ошибки
         if flag:
             sql = """INSERT INTO clients 
                     (f_name, l_name, login, password) values(?, ?, ?, ?)"""
@@ -42,10 +48,6 @@ class RegistrationWidget(QDialog):
             # добавляет пользователя
             with con:
                 con.execute(sql, data)
-
-            # добавляет логин пользователя для дальнейшей работы
-            with open("This moment client.txt", mode="w+") as f:
-                f.write(login)
 
             sys.exit(app.exec())
         else:

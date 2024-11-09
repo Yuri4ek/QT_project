@@ -5,13 +5,23 @@ from PyQt6.QtWidgets import QApplication, QMainWindow
 
 import subprocess
 
+"""
+    Этот класс предназначен для связки всех других окон, с этого файла 
+    начинается путь к программе
+"""
+
 
 class OpenWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi("QT_layouts/openWindow.ui", self)
 
+        # при нажатии открывает окно регистрации, после, если регистрация
+        # успешна, открывает рабочее окно
         self.registration.clicked.connect(self.open_registration)
+
+        # при нажатии открывает окно авторизации, после, если вход успешен,
+        # открывает рабочее окно
         self.authorization.clicked.connect(self.open_authorization)
 
     def open_registration(self):
@@ -23,6 +33,7 @@ class OpenWidget(QMainWindow):
         with open("This moment client.txt", mode="w") as f:
             pass
 
+        # если данные правильны, то открывает рабочее окно
         with open("This moment client.txt", mode="r") as f:
             if f.read() != "":
                 subprocess.run(['python', 'work.py'])
@@ -38,6 +49,7 @@ class OpenWidget(QMainWindow):
         with open("This moment client.txt", mode="w") as f:
             pass
 
+        # если данные правильны, то открывает рабочее окно
         with open("This moment client.txt", mode="r") as f:
             if f.read() != "":
                 subprocess.run(['python', 'work.py'])

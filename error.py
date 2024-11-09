@@ -3,6 +3,10 @@ import sys
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QDialog
 
+"""
+    Этот класс предназначен для индивидуальных виджетов ошибок
+"""
+
 
 class ErrorWidget(QDialog):
     def __init__(self):
@@ -12,6 +16,8 @@ class ErrorWidget(QDialog):
         try:
             file = str(sys.argv[1]).split('\\')[-1]
 
+            # Выбирается текст для вывода ошибки в зависимости от открытого
+            # окна
             if file == "registration.py":
                 text = "Существует клиент с таким логином"
             elif file == "authorization.py":

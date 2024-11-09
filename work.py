@@ -3,6 +3,10 @@ import sys
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow
 
+"""
+    Этот класс предназначен для работы с паролями и папками
+"""
+
 
 class WorkWidget(QMainWindow):
     def __init__(self):
