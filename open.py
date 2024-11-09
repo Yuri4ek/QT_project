@@ -18,14 +18,30 @@ class OpenWidget(QMainWindow):
         subprocess.run(['python', 'registration.py'])
 
         ex.hide()
-        subprocess.run(['python', 'work.py'])
+
+        # удаляет логин
+        with open("This moment client.txt", mode="w") as f:
+            pass
+
+        with open("This moment client.txt", mode="r") as f:
+            if f.read() != "":
+                subprocess.run(['python', 'work.py'])
+
         sys.exit(app.exec())
 
     def open_authorization(self):
         subprocess.run(['python', 'authorization.py'])
 
         ex.hide()
-        subprocess.run(['python', 'work.py'])
+
+        # удаляет логин
+        with open("This moment client.txt", mode="w") as f:
+            pass
+
+        with open("This moment client.txt", mode="r") as f:
+            if f.read() != "":
+                subprocess.run(['python', 'work.py'])
+
         sys.exit(app.exec())
 
 

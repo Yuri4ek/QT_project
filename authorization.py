@@ -33,6 +33,10 @@ class AuthorizationWidget(QDialog):
                 break
 
         if flag:
+            # добавляет логин пользователя для дальнейшей работы
+            with open("This moment client.txt", mode="w+") as f:
+                f.write(login)
+
             sys.exit(app.exec())
         else:
             file = __file__
