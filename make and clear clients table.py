@@ -2,7 +2,7 @@ import sqlite3 as sql
 
 con = sql.connect("users.db")
 
-# создает базу данных пользователей если его нет
+# создает таблицу паролей
 with con:
     data = con.execute("""SELECT count(*) FROM sqlite_master 
                         WHERE type='table' and name='clients'""")
