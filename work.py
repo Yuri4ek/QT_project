@@ -42,7 +42,7 @@ class WorkWidget(QMainWindow):
         self.add_button.show()
 
     def add(self):
-        con = sqlite3.connect("users.db")
+        con = sqlite3.connect("DB files/users.db")
         sql = """
                 INSERT INTO clients 
                 (service_name, login, password, client_login) 

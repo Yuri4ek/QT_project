@@ -24,7 +24,7 @@ class AuthorizationWidget(QDialog):
         login = self.login_edit.text()
         password = self.password_edit.text()
 
-        con = sqlite3.connect("users.db")
+        con = sqlite3.connect("DB files/users.db")
 
         with con:
             data = con.execute("""SELECT * FROM clients""")
