@@ -43,14 +43,27 @@ class WorkWidget(QMainWindow):
 
     def add(self):
         con = sqlite3.connect("DB files/users.db")
-        sql = """
-                INSERT INTO clients 
+
+        if self.this_moment_task == "password":
+            sql = """
+                INSERT INTO passwords 
                 (service_name, login, password, client_login) 
                 values(?, ?, ?, ?)
                 """
 
-        if self.this_moment_task == "password":
             subprocess.run(['python', 'add password.py'])
+
+            # достаем данные для сохранения пароля в БД
+            with open("last password.txt", mode="r") as f:
+                new_password = f.read().split("\t")
+
+            # добавляет пароль в БД
+            with con:
+                con.execute(sql, new_password)
+
+            # очищает файл
+            with open("last password.txt", mode="w+") as f:
+                pass
 
         elif self.this_moment_task == "folder":
             subprocess.run(['python', 'add folder.py'])
