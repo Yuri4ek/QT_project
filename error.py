@@ -22,6 +22,8 @@ class ErrorWidget(QDialog):
                 text = "Существует клиент с таким логином"
             elif file == "authorization.py":
                 text = "Неправильный логин или пароль"
+            elif file == "add password.py":
+                text = "Одно из полей пусто"
 
             self.error_label.setText(text)
         except:

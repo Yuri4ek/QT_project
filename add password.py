@@ -1,7 +1,11 @@
 import sys
 
+import sqlite3
+
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QDialog
+
+import subprocess
 
 """
     Этот класс предназначен для взятие данных для создания пароля
@@ -16,6 +20,8 @@ class AddPasswordWidget(QDialog):
         self.add_button.clicked.connect(self.safe_password)
 
     def safe_password(self):
+        con = sqlite3.connect("DB files/users.db")
+
         # достаем название текущего пользователя/клиента
         with open("This moment client.txt", mode="r") as f:
             client = f.read()
@@ -24,11 +30,23 @@ class AddPasswordWidget(QDialog):
         login = self.login_edit.text()
         password = self.password_edit.text()
 
-        # сохраняем пароль в файл, чтобы потом из него достать и добавить в БД
-        with open("last password.txt", mode="w+") as f:
-            f.write("\t".join([service, login, password, client]))
+        # проверка на пустоту одну из переменных
+        if service != "" and login != "" and password != "":
+            sql = """
+                INSERT INTO passwords 
+                (service_name, login, password, client_login) 
+                values(?, ?, ?, ?)
+                """
 
-        sys.exit(app.exec())
+            data = (service, login, password, client)
+
+            # добавляет пароль в БД
+            with con:
+                con.execute(sql, data)
+        else:
+            file = __file__
+
+            subprocess.run(['python', 'error.py', file])
 
 
 def except_hook(cls, exception, traceback):

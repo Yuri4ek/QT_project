@@ -3,7 +3,7 @@ import sys
 import sqlite3
 
 from PyQt6 import uic
-from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout
 
 import subprocess
 
@@ -30,10 +30,32 @@ class WorkWidget(QMainWindow):
         self.add_button.clicked.connect(self.add)
 
     def passwords_work(self):
+        # показ конпки добавления пароля
         self.this_moment_task = "password"
 
         self.add_button.setText("Добавить пароль")
         self.add_button.show()
+
+        print(1)
+        # начальные координаты первой кнопки пароля
+        x = 20
+        y = 112
+
+        # взятие паролей для вывода
+        con = sqlite3.connect("DB files/users.db")
+        with con:
+            passwords_data = con.execute("""SELECT * FROM passwords""")
+
+        # вывод паролей
+        for password_data in passwords_data:
+            password_button = QPushButton(password_data[0])
+            password_button.setFixedSize(760, 40)
+
+            password_button.move(x, y)
+
+            y += 42
+            self.password_layout.addWidget(password_button)
+
 
     def folders_work(self):
         self.this_moment_task = "folder"
@@ -42,29 +64,8 @@ class WorkWidget(QMainWindow):
         self.add_button.show()
 
     def add(self):
-        con = sqlite3.connect("DB files/users.db")
-
         if self.this_moment_task == "password":
-            sql = """
-                INSERT INTO passwords 
-                (service_name, login, password, client_login) 
-                values(?, ?, ?, ?)
-                """
-
             subprocess.run(['python', 'add password.py'])
-
-            # достаем данные для сохранения пароля в БД
-            with open("last password.txt", mode="r") as f:
-                new_password = f.read().split("\t")
-
-            # добавляет пароль в БД
-            with con:
-                con.execute(sql, new_password)
-
-            # очищает файл
-            with open("last password.txt", mode="w+") as f:
-                pass
-
         elif self.this_moment_task == "folder":
             subprocess.run(['python', 'add folder.py'])
 
