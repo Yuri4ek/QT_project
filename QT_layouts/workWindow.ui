@@ -28,7 +28,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Рабочее окно</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="folders_button">
