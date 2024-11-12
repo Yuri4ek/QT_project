@@ -32,6 +32,18 @@ class AddPasswordWidget(QDialog):
 
         # проверка на пустоту одну из переменных
         if service != "" and login != "" and password != "":
+            with con:
+                passwords_data = con.execute("""SELECT * FROM passwords""")
+            for password_data in passwords_data:
+                # проверка на существование пароля с таким логином в таком
+                # сервисе
+                if service == password_data[0] and login == password_data[1]:
+                    file = __file__
+
+                    subprocess.run(['python', 'error.py', file])
+
+                    return
+
             sql = """
                 INSERT INTO passwords 
                 (service_name, login, password, client_login) 
@@ -43,6 +55,8 @@ class AddPasswordWidget(QDialog):
             # добавляет пароль в БД
             with con:
                 con.execute(sql, data)
+
+            sys.exit(app.exec())
         else:
             file = __file__
 

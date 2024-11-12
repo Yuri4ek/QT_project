@@ -36,7 +36,6 @@ class WorkWidget(QMainWindow):
         self.add_button.setText("Добавить пароль")
         self.add_button.show()
 
-        print(1)
         # начальные координаты первой кнопки пароля
         x = 20
         y = 112
