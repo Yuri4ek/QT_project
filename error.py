@@ -13,6 +13,8 @@ class ErrorWidget(QDialog):
         super().__init__()
         uic.loadUi("QT_layouts/errorWindow.ui", self)
 
+        self.ok_button.clicked.connect(self.exit)
+
         try:
             file = str(sys.argv[1]).split('\\')[-1]
 
@@ -23,11 +25,14 @@ class ErrorWidget(QDialog):
             elif file == "authorization.py":
                 text = "Неправильный логин или пароль"
             elif file == "add password.py":
-                text = "Одно из полей пусто или пароль существует"
+                text = "Поле пусто/Существует такой пароль"
 
             self.error_label.setText(text)
         except:
             pass
+
+    def exit(self):
+        sys.exit(app.exec())
 
 
 def except_hook(cls, exception, traceback):
