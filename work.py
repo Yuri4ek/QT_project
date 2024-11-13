@@ -92,7 +92,7 @@ class WorkWidget(QMainWindow):
 
     def password_output_safe(self, password):
         # вывод пароля
-        password_button = QPushButton(password[0])
+        password_button = QPushButton(password[1])
         password_button.setFixedSize(760, 40)
 
         self.password_layout.addWidget(password_button)

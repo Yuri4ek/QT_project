@@ -49,6 +49,10 @@ class RegistrationWidget(QDialog):
             with con:
                 con.execute(sql, data)
 
+            # добавляет логин пользователя для дальнейшей работы
+            with open("DB files/This moment client.txt", mode="w+") as f:
+                f.write(login)
+
             sys.exit(app.exec())
         else:
             file = __file__

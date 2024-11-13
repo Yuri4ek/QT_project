@@ -2,21 +2,18 @@ import sqlite3 as sql
 
 con = sql.connect("users.db")
 
-# создает таблицу паролей
+# создает таблицу папок
 with con:
     data = con.execute("""SELECT count(*) FROM sqlite_master 
-                        WHERE type='table' and name='passwords'""")
+                        WHERE type='table' and name='folders'""")
     for row in data:
         if row[0] == 0:
             with con:
                 con.execute("""
-                    CREATE TABLE passwords 
+                    CREATE TABLE folders 
                     (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
-                        service_name,
-                        login VARCHAR(20),
-                        password VARCHAR(20),
-                        client_login VARCHAR(10)
+                        folders_name,
+                        passwords VARCHAR(1000)
                     );
                 """)
 

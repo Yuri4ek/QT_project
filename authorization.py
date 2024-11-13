@@ -42,7 +42,7 @@ class AuthorizationWidget(QDialog):
         # то он заходит в систему иначе выйдет окно ошибки
         if flag:
             # добавляет логин пользователя для дальнейшей работы
-            with open("This moment client.txt", mode="w+") as f:
+            with open("DB files/This moment client.txt", mode="w+") as f:
                 f.write(login)
 
             sys.exit(app.exec())

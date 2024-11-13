@@ -28,14 +28,14 @@ class OpenWidget(QMainWindow):
         subprocess.run(['python', 'registration.py'])
 
         # если данные правильны, то открывает рабочее окно
-        with open("This moment client.txt", mode="r") as f:
+        with open("DB files/This moment client.txt", mode="r") as f:
             if f.read() != "":
                 ex.hide()
 
                 subprocess.run(['python', 'work.py'])
 
                 # удаляет логин
-                with open("This moment client.txt", mode="w") as f:
+                with open("DB files/This moment client.txt", mode="w") as f:
                     pass
 
                 sys.exit(app.exec())
@@ -44,14 +44,14 @@ class OpenWidget(QMainWindow):
         subprocess.run(['python', 'authorization.py'])
 
         # если данные правильны, то открывает рабочее окно
-        with open("This moment client.txt", mode="r") as f:
+        with open("DB files/This moment client.txt", mode="r") as f:
             if f.read() != "":
                 ex.hide()
 
                 subprocess.run(['python', 'work.py'])
 
                 # удаляет логин
-                with open("This moment client.txt", mode="w") as f:
+                with open("DB files/This moment client.txt", mode="w") as f:
                     pass
 
                 sys.exit(app.exec())

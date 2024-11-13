@@ -65,7 +65,7 @@ class AddPasswordWidget(QDialog):
         con = sqlite3.connect("DB files/users.db")
 
         # достаем название текущего пользователя/клиента
-        with open("This moment client.txt", mode="r") as f:
+        with open("DB files/This moment client.txt", mode="r") as f:
             client = f.read()
 
         return client
