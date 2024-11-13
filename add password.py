@@ -20,20 +20,19 @@ class AddPasswordWidget(QDialog):
         self.add_button.clicked.connect(self.safe_password)
 
     def safe_password(self):
-        con = sqlite3.connect("DB files/users.db")
-
-        # достаем название текущего пользователя/клиента
-        with open("This moment client.txt", mode="r") as f:
-            client = f.read()
-
         service = self.name_edit.text()
         login = self.login_edit.text()
         password = self.password_edit.text()
+        client = self.taking_client()
 
         # проверка на пустоту одну из переменных
         if service != "" and login != "" and password != "":
+            con = sqlite3.connect("DB files/users.db")
+
+            # взятие паролей
             with con:
                 passwords_data = con.execute("""SELECT * FROM passwords""")
+
             for password_data in passwords_data:
                 # проверка на существование пароля с таким логином в таком
                 # сервисе
@@ -61,6 +60,15 @@ class AddPasswordWidget(QDialog):
             file = __file__
 
             subprocess.run(['python', 'error.py', file])
+
+    def taking_client(self):
+        con = sqlite3.connect("DB files/users.db")
+
+        # достаем название текущего пользователя/клиента
+        with open("This moment client.txt", mode="r") as f:
+            client = f.read()
+
+        return client
 
 
 def except_hook(cls, exception, traceback):
