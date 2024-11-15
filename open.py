@@ -24,6 +24,9 @@ class OpenWidget(QMainWindow):
         # открывает рабочее окно
         self.authorization.clicked.connect(self.open_authorization)
 
+        # открывает окно о Андрияне Николаеве
+        self.andrian_congratulate()
+
     def open_registration(self):
         subprocess.run(['python', 'registration.py'])
 
@@ -55,6 +58,9 @@ class OpenWidget(QMainWindow):
                     pass
 
                 sys.exit(app.exec())
+
+    def andrian_congratulate(self):
+        subprocess.run(['python', 'Space_man/Congratulation.py'])
 
 
 def except_hook(cls, exception, traceback):
