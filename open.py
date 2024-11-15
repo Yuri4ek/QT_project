@@ -27,6 +27,12 @@ class OpenWidget(QMainWindow):
         # открывает окно о Андрияне Николаеве
         self.andrian_congratulate()
 
+        # делает фон звездным
+        self.setStyleSheet("""
+        QMainWindow { background-image:url(Space_man/phon.jpg); 
+        background-repeat: no-repeat; background-position: center; } 
+                        """)
+
     def open_registration(self):
         subprocess.run(['python', 'registration.py'])
 

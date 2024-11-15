@@ -32,6 +32,12 @@ class WorkWidget(QMainWindow):
 
         self.add_button.clicked.connect(self.add)
 
+        # делает фон звездным
+        self.setStyleSheet("""
+                QMainWindow { background-image:url(Space_man/phon.jpg); 
+                background-repeat: no-repeat; background-position: center; } 
+                                """)
+
     def passwords_work(self):
         if self.this_moment_task != "password":
             try:
