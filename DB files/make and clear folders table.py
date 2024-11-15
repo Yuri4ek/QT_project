@@ -17,12 +17,12 @@ with con:
                     );
                 """)
 
-# удаляет все пароли
+# удаляет все папки
 with con:
-    con.execute("""DELETE FROM passwords""")
+    con.execute("""DELETE FROM folders""")
 
-# вывод всех паролей
+# вывод всех папок
 with con:
-    data = con.execute("""SELECT * FROM passwords""")
+    data = con.execute("""SELECT * FROM folders""")
     for row in data:
         print(row)

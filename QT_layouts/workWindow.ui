@@ -111,6 +111,17 @@
      </property>
     </layout>
    </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>140</y>
+      <width>761</width>
+      <height>39</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="folder_layout"/>
+   </widget>
   </widget>
  </widget>
  <resources/>

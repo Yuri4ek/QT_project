@@ -76,6 +76,11 @@ class WorkWidget(QMainWindow):
             self.add_button.setText("Создать папку")
             self.add_button.show()
 
+            try:
+                pass
+            except Exception:
+                print("Видимо БД пуст")
+
             for password_button in self.passwords_buttons_group:
                 password_button.hide()
 
@@ -140,6 +145,13 @@ class WorkWidget(QMainWindow):
                     pass
 
                 break
+
+    def taking_folders_from_DB(self):
+        con = sqlite3.connect("DB files/users.db")
+        with con:
+            folders_data = list(con.execute("""SELECT * FROM folders"""))
+
+        return folders_data
 
 
 def except_hook(cls, exception, traceback):
