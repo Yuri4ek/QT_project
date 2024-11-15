@@ -114,6 +114,33 @@ class WorkWidget(QMainWindow):
         # сохранение пароля в список
         self.passwords_buttons_group.append(password_button)
 
+        password_button.clicked.connect(self.display_password_data)
+
+    def display_password_data(self):
+        service = self.sender().text()
+
+        con = sqlite3.connect("DB files/users.db")
+
+        sql = """SELECT * FROM passwords"""
+
+        with con:
+            passwords_data = list(con.execute(sql))
+
+        for password_data in passwords_data:
+            if password_data[1] == service:
+                # запись пароля
+                with open("DB files/password", mode="w+") as file:
+                    file.write("\n".join(password_data[1:]))
+
+                # вывод пароля
+                subprocess.run(['python', 'display password.py'])
+
+                # удаление пароля
+                with open("DB files/password", mode="w+") as file:
+                    pass
+
+                break
+
 
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
