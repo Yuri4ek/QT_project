@@ -19,6 +19,8 @@ class WorkWidget(QMainWindow):
 
         self.this_moment_task = None
 
+        self.password_menu_open_flag = True
+
         self.passwords_buttons_group = []
         self.last_button = None
 
@@ -40,22 +42,28 @@ class WorkWidget(QMainWindow):
 
     def passwords_work(self):
         if self.this_moment_task != "password":
+            # смена режима окна на добавления паролей
+            self.this_moment_task = "password"
+
+            # показ кнопки добавления пароля
+            self.add_button.setText("Добавить пароль")
+            self.add_button.show()
+
             try:
-                # смена режима окна на добавления паролей
-                self.this_moment_task = "password"
+                if self.password_menu_open_flag:
+                    # взятие паролей для вывода
+                    passwords_data = self.taking_passwords_from_DB()
 
-                # показ кнопки добавления пароля
-                self.add_button.setText("Добавить пароль")
-                self.add_button.show()
+                    # вывод и сохранение паролей
+                    for password_data in passwords_data:
+                        self.password_output_safe(password_data)
 
-                # взятие паролей для вывода
-                passwords_data = self.taking_passwords_from_DB()
+                    self.last_button = passwords_data[-1]
 
-                # вывод и сохранение паролей
-                for password_data in passwords_data:
-                    self.password_output_safe(password_data)
-
-                self.last_button = passwords_data[-1]
+                    self.password_menu_open_flag = False
+                else:
+                    for password_button in self.passwords_buttons_group:
+                        password_button.show()
             except Exception:
                 print("Видимо БД пуст")
 
