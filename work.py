@@ -152,6 +152,7 @@ class WorkWidget(QMainWindow):
         # сохранение пароля в список
         self.passwords_buttons_group.append(password_button)
 
+        # вывод данных пароля при нажатии кнопки
         password_button.clicked.connect(self.display_password_data)
 
     def display_password_data(self):
@@ -193,10 +194,36 @@ class WorkWidget(QMainWindow):
 
         self.folder_layout.addWidget(folder_button)
 
-        # сохранение пароля в список
+        # сохранение папки в список
         self.folders_buttons_group.append(folder_button)
 
-        """folder_button.clicked.connect(self.display_folder_data)"""
+        # вывод данных папки при нажатии кнопки
+        folder_button.clicked.connect(self.display_folder_data)
+
+    def display_folder_data(self):
+        folder_name = self.sender().text()
+
+        con = sqlite3.connect("DB files/users.db")
+
+        sql = """SELECT * FROM folders"""
+
+        with con:
+            folders_data = list(con.execute(sql))
+
+        for folder_data in folders_data:
+            if folder_data[0] == folder_name:
+                # запись папки
+                with open("DB files/folder", mode="w+") as file:
+                    file.write("\n".join(folder_data))
+
+                # вывод папки
+                subprocess.run(['python', 'display folder.py'])
+
+                # удаление папки
+                with open("DB files/folder", mode="w+") as file:
+                    pass
+
+                break
 
 
 def except_hook(cls, exception, traceback):
