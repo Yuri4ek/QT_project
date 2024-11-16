@@ -19,10 +19,15 @@ class WorkWidget(QMainWindow):
 
         self.this_moment_task = None
 
+        # переменные для упрощения работы с паролями
         self.password_menu_open_flag = True
-
         self.passwords_buttons_group = []
-        self.last_button = None
+        self.last_password_data = None
+
+        # переменные для упрощения работы с папками
+        self.folder_menu_open_flag = True
+        self.folders_buttons_group = []
+        self.last_folder_data = None
 
         self.add_button.hide()
 
@@ -58,7 +63,7 @@ class WorkWidget(QMainWindow):
                     for password_data in passwords_data:
                         self.password_output_safe(password_data)
 
-                    self.last_button = passwords_data[-1]
+                    self.last_password_data = passwords_data[-1]
 
                     self.password_menu_open_flag = False
                 else:
@@ -66,6 +71,9 @@ class WorkWidget(QMainWindow):
                         password_button.show()
             except Exception:
                 print("Видимо БД пуст")
+
+            for folder_button in self.folders_buttons_group:
+                folder_button.hide()
 
     def folders_work(self):
         if self.this_moment_task != "folder":
@@ -77,7 +85,20 @@ class WorkWidget(QMainWindow):
             self.add_button.show()
 
             try:
-                pass
+                if self.folder_menu_open_flag:
+                    # взятие папок для вывода
+                    folders_data = self.taking_folders_from_DB()
+
+                    # вывод и сохранение папок
+                    for folder_data in folders_data:
+                        self.folder_output_safe(folder_data)
+
+                    self.last_folder_data = folders_data[-1]
+
+                    self.folder_menu_open_flag = False
+                else:
+                    for folder_button in self.folders_buttons_group:
+                        folder_button.show()
             except Exception:
                 print("Видимо БД пуст")
 
@@ -92,15 +113,27 @@ class WorkWidget(QMainWindow):
                 # взятие пароля для вывода
                 password_data = self.taking_passwords_from_DB()[-1]
 
-                if password_data != self.last_button:
+                if password_data != self.last_password_data:
                     # вывод и сохранение пароля
                     self.password_output_safe(password_data)
 
-                    self.last_button = password_data
+                    self.last_password_data = password_data
             except Exception:
                 print("Видимо БД пуст")
         elif self.this_moment_task == "folder":
-            subprocess.run(['python', 'add folder.py'])
+            try:
+                subprocess.run(['python', 'add folder.py'])
+
+                # взятие папки для вывода
+                folder_data = self.taking_folders_from_DB()[-1]
+
+                if folder_data != self.last_folder_data:
+                    # вывод и сохранение папки
+                    self.folder_output_safe(folder_data)
+
+                    self.last_folder_data = folder_data
+            except Exception:
+                print("Видимо БД пуст")
 
     def taking_passwords_from_DB(self):
         con = sqlite3.connect("DB files/users.db")
@@ -152,6 +185,18 @@ class WorkWidget(QMainWindow):
             folders_data = list(con.execute("""SELECT * FROM folders"""))
 
         return folders_data
+
+    def folder_output_safe(self, folder):
+        # вывод папки
+        folder_button = QPushButton(folder[0])
+        folder_button.setFixedSize(760, 40)
+
+        self.folder_layout.addWidget(folder_button)
+
+        # сохранение пароля в список
+        self.folders_buttons_group.append(folder_button)
+
+        """folder_button.clicked.connect(self.display_folder_data)"""
 
 
 def except_hook(cls, exception, traceback):

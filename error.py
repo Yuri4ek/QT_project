@@ -25,7 +25,9 @@ class ErrorWidget(QDialog):
             elif file == "authorization.py":
                 text = "Неправильный логин или пароль"
             elif file == "add password.py":
-                text = "Поле пусто/Существует такой пароль"
+                text = "Поле пусто или существует такой пароль"
+            elif file == "add folder.py":
+                text = "Поле пусто или существует такая папка"
 
             self.error_label.setText(text)
         except:

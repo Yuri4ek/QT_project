@@ -5,6 +5,8 @@ import sqlite3
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QDialog, QCheckBox
 
+import subprocess
+
 """
     Этот класс предназначен для взятие данных для создания папки
 """
@@ -39,7 +41,7 @@ class AddPasswordWidget(QDialog):
         # то получится пустая строка
         passwords = []
         if self.empty.isChecked():
-            pass
+            passwords.append("")
         else:
             for check_box in self.checkBoxes:
                 if check_box.isChecked():
@@ -50,21 +52,41 @@ class AddPasswordWidget(QDialog):
                             id = password_data[0]
                             passwords.append(str(id))
 
-        con = sqlite3.connect("DB files/users.db")
+        # Если название папки не ввел или не выбрал один из чекбоксов,
+        # то выведется ошибка
+        if folder_name != "" and len(passwords) > 0:
+            con = sqlite3.connect("DB files/users.db")
 
-        sql = """
-                INSERT INTO folders 
-                (folders_name, passwords) 
-                values(?, ?)
-                """
+            # взятие папок
+            with con:
+                folders_data = con.execute("""SELECT * FROM folders""")
 
-        data = [folder_name, " ".join(passwords)]
+            for folder_data in folders_data:
+                # проверка на существование папки с таким названием
+                if folder_name == folder_data[0]:
+                    file = __file__
 
-        # добавляет папку в БД
-        with con:
-            con.execute(sql, data)
+                    subprocess.run(['python', 'error.py', file])
 
-        sys.exit(app.exec())
+                    return
+
+            sql = """
+                    INSERT INTO folders 
+                    (folder_name, passwords) 
+                    values(?, ?)
+                    """
+
+            data = [folder_name, " ".join(passwords)]
+
+            # добавляет папку в БД
+            with con:
+                con.execute(sql, data)
+
+            sys.exit(app.exec())
+        else:
+            file = __file__
+
+            subprocess.run(['python', 'error.py', file])
 
     def taking_passwords_from_DB(self):
         con = sqlite3.connect("DB files/users.db")

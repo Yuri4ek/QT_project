@@ -120,7 +120,17 @@
       <height>39</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="folder_layout"/>
+    <layout class="QVBoxLayout" name="folder_layout">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMinAndMaxSize</enum>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+    </layout>
    </widget>
   </widget>
  </widget>

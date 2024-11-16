@@ -12,7 +12,7 @@ with con:
                 con.execute("""
                     CREATE TABLE folders 
                     (
-                        folders_name,
+                        folder_name,
                         passwords VARCHAR(1000)
                     );
                 """)
