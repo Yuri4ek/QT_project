@@ -62,8 +62,6 @@ class AddPasswordWidget(QDialog):
             subprocess.run(['python', 'error.py', file])
 
     def taking_client(self):
-        con = sqlite3.connect("DB files/users.db")
-
         # достаем название текущего пользователя/клиента
         with open("DB files/This moment client.txt", mode="r") as f:
             client = f.read()

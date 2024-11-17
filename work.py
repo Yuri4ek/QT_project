@@ -17,6 +17,10 @@ class WorkWidget(QMainWindow):
         super().__init__()
         uic.loadUi("QT_layouts/workWindow.ui", self)
 
+        # логин клиента
+        with open("DB files/This moment client.txt", mode="r") as file:
+            self.client = file.read()
+
         self.this_moment_task = None
 
         # переменные для упрощения работы с паролями
@@ -61,7 +65,8 @@ class WorkWidget(QMainWindow):
 
                     # вывод и сохранение паролей
                     for password_data in passwords_data:
-                        self.password_output_safe(password_data)
+                        if password_data[-1] == self.client:
+                            self.password_output_safe(password_data)
 
                     self.last_password_data = passwords_data[-1]
 
@@ -91,7 +96,8 @@ class WorkWidget(QMainWindow):
 
                     # вывод и сохранение папок
                     for folder_data in folders_data:
-                        self.folder_output_safe(folder_data)
+                        if folder_data[-1] == self.client:
+                            self.folder_output_safe(folder_data)
 
                     self.last_folder_data = folders_data[-1]
 
@@ -114,8 +120,9 @@ class WorkWidget(QMainWindow):
                 password_data = self.taking_passwords_from_DB()[-1]
 
                 if password_data != self.last_password_data:
-                    # вывод и сохранение пароля
-                    self.password_output_safe(password_data)
+                    if password_data[-1] == self.client:
+                        # вывод и сохранение пароля
+                        self.password_output_safe(password_data)
 
                     self.last_password_data = password_data
             except Exception:
@@ -128,8 +135,9 @@ class WorkWidget(QMainWindow):
                 folder_data = self.taking_folders_from_DB()[-1]
 
                 if folder_data != self.last_folder_data:
-                    # вывод и сохранение папки
-                    self.folder_output_safe(folder_data)
+                    if folder_data[-1] == self.client:
+                        # вывод и сохранение папки
+                        self.folder_output_safe(folder_data)
 
                     self.last_folder_data = folder_data
             except Exception:

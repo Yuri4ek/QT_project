@@ -37,6 +37,8 @@ class AddPasswordWidget(QDialog):
     def add_folder(self):
         folder_name = self.name_edit.text()
 
+        client = self.taking_client()
+
         # сохранение паролей в виде индексов, если выбран чекбокс пустоты,
         # то получится пустая строка
         passwords = []
@@ -72,11 +74,11 @@ class AddPasswordWidget(QDialog):
 
             sql = """
                     INSERT INTO folders 
-                    (folder_name, passwords) 
-                    values(?, ?)
+                    (folder_name, passwords, client_login) 
+                    values(?, ?, ?)
                     """
 
-            data = [folder_name, " ".join(passwords)]
+            data = [folder_name, " ".join(passwords), client]
 
             # добавляет папку в БД
             with con:
@@ -88,12 +90,26 @@ class AddPasswordWidget(QDialog):
 
             subprocess.run(['python', 'error.py', file])
 
+    def taking_client(self):
+        # достаем название текущего пользователя/клиента
+        with open("DB files/This moment client.txt", mode="r") as f:
+            client = f.read()
+
+        return client
+
     def taking_passwords_from_DB(self):
+        client = self.taking_client()
+
         con = sqlite3.connect("DB files/users.db")
         with con:
             passwords_data = list(con.execute("""SELECT * FROM passwords"""))
 
-        return passwords_data
+        new_passwords_data = []
+        for password_data in passwords_data:
+            if password_data[-1] == client:
+                new_passwords_data.append(password_data)
+
+        return new_passwords_data
 
 
 def except_hook(cls, exception, traceback):

@@ -13,13 +13,23 @@ with con:
                     CREATE TABLE folders 
                     (
                         folder_name,
-                        passwords VARCHAR(1000)
+                        passwords VARCHAR(1000),
+                        client_login
                     );
                 """)
 
 # удаляет все папки
 with con:
     con.execute("""DELETE FROM folders""")
+
+sql = """INSERT INTO passwords 
+        (folder_name, passwords, client_login) values(?, ?, ?)"""
+
+data = ("folder", "20", "admin",)
+
+# добавляет папку админа
+with con:
+    con.execute(sql, data)
 
 # вывод всех папок
 with con:

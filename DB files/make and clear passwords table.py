@@ -24,6 +24,15 @@ with con:
 with con:
     con.execute("""DELETE FROM passwords""")
 
+sql = """INSERT INTO passwords 
+        (service_name, login, password, client_login) values(?, ?, ?, ?)"""
+
+data = ("service_name", "login", "password", "admin",)
+
+# добавляет пароль админа
+with con:
+    con.execute(sql, data)
+
 # вывод всех паролей
 with con:
     data = con.execute("""SELECT * FROM passwords""")
