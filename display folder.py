@@ -38,7 +38,6 @@ class DisplayFolderWidget(QMainWindow):
         except Exception:
             print("Видимо БД пуст")
 
-
         # вывод названии папки на экран
         self.folder_name.setText(f"Название папки: {data[0]}")
 
