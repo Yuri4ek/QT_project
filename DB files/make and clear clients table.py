@@ -38,6 +38,12 @@ data = ("", "", "", "",)
 with con:
     con.execute(sql, data)
 
+data = ("Юрий", "Антонов", "yurik", "1234",)
+
+# добавляет Юрика
+with con:
+    con.execute(sql, data)
+
 # вывод всех пользователей и их данных
 with con:
     data = con.execute("""SELECT * FROM clients""")

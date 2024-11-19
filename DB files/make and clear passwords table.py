@@ -33,6 +33,17 @@ data = ("service_name", "login", "password", "admin",)
 with con:
     con.execute(sql, data)
 
+data = (("майнкрафт", "yurik", "1234", "yurik",),
+        ("степик", "yurik", "1234", "yurik",),
+        ("гугл", "yurik", "1234", "yurik",),
+        ("телеграмм", "89083062970", "1234", "yurik",),
+        ("яндекс", "yura09antonov", "1234", "yurik",),)
+
+# добавляет пароли Юрика
+with con:
+    for small_data in data:
+        con.execute(sql, small_data)
+
 # вывод всех паролей
 with con:
     data = con.execute("""SELECT * FROM passwords""")

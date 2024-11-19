@@ -22,10 +22,10 @@ with con:
 with con:
     con.execute("""DELETE FROM folders""")
 
-sql = """INSERT INTO passwords 
+sql = """INSERT INTO folders 
         (folder_name, passwords, client_login) values(?, ?, ?)"""
 
-data = ("folder", "20", "admin",)
+data = ("folder", "1", "admin",)
 
 # добавляет папку админа
 with con:

@@ -56,6 +56,12 @@ class WorkWidget(QMainWindow):
     def display_client(self):
         subprocess.run(['python', 'display and change client data.py'])
 
+        # логин клиента
+        with open("DB files/This moment client.txt", mode="r") as file:
+            self.client = file.read()
+
+        self.client_button.setText(self.client)
+
     def passwords_work(self):
         if self.this_moment_task != "password":
             # смена режима окна на добавления паролей

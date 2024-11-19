@@ -54,7 +54,6 @@ class WorkWidget(QMainWindow):
     def change_client_login(self):
         new_client, ok_pressed = QInputDialog.getText(
             self, "Изменение логина", "Введите новый логин")
-        print(1)
 
         if ok_pressed:
             con = sqlite3.connect("DB files/users.db")
@@ -66,9 +65,27 @@ class WorkWidget(QMainWindow):
                     """
                 con.execute(sql)
 
-    def change_client_password(self):
-        pass
+            # изменение логина клиента
+            with open("DB files/This moment client.txt", mode="w") as file:
+                file.write(new_client)
 
+            self.client_login.setText(new_client)
+
+    def change_client_password(self):
+        new_password, ok_pressed = QInputDialog.getText(
+            self, "Изменение пароля", "Введите новый пароль")
+
+        if ok_pressed:
+            con = sqlite3.connect("DB files/users.db")
+
+            with con:
+                sql = f"""
+                    UPDATE clients SET password = '{new_password}'
+                    WHERE login = '{self.client}'
+                    """
+                con.execute(sql)
+
+            self.client_password.setText(new_password)
 
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
