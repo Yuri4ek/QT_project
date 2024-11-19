@@ -36,7 +36,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>400</width>
+      <width>300</width>
       <height>40</height>
      </rect>
     </property>
@@ -59,9 +59,9 @@
    <widget class="QPushButton" name="passwords_button">
     <property name="geometry">
      <rect>
-      <x>400</x>
+      <x>300</x>
       <y>0</y>
-      <width>400</width>
+      <width>300</width>
       <height>40</height>
      </rect>
     </property>
@@ -131,6 +131,27 @@
       <number>0</number>
      </property>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="client_button">
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>0</y>
+      <width>200</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Yu Gothic UI Semilight</family>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Пользователь</string>
+    </property>
    </widget>
   </widget>
  </widget>
