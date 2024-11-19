@@ -48,6 +48,7 @@ class WorkWidget(QMainWindow):
         self.client_login.setText(self.client)
         self.client_password.setText(password)
 
+        # изменение логина и пароля
         self.change_login.clicked.connect(self.change_client_login)
         self.change_password.clicked.connect(self.change_client_password)
 
