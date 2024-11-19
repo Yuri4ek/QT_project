@@ -21,6 +21,10 @@ class WorkWidget(QMainWindow):
         with open("DB files/This moment client.txt", mode="r") as file:
             self.client = file.read()
 
+        # показ текущего клиента
+        self.client_button.setText(self.client)
+        self.client_button.clicked.connect(self.display_client)
+
         self.this_moment_task = None
 
         # переменные для упрощения работы с паролями
@@ -48,6 +52,9 @@ class WorkWidget(QMainWindow):
                 QMainWindow { background-image:url(Space_man/phon.jpg); 
                 background-repeat: no-repeat; background-position: center; } 
                                 """)
+
+    def display_client(self):
+        subprocess.run(['python', 'display and change client data.py'])
 
     def passwords_work(self):
         if self.this_moment_task != "password":
