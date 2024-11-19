@@ -47,7 +47,7 @@ class OpenWidget(QMainWindow):
                 with open("DB files/This moment client.txt", mode="w") as f:
                     pass
 
-                sys.exit(app.exec())
+                self.show()
 
     def open_authorization(self):
         subprocess.run(['python', 'authorization.py'])
@@ -63,7 +63,7 @@ class OpenWidget(QMainWindow):
                 with open("DB files/This moment client.txt", mode="w") as f:
                     pass
 
-                sys.exit(app.exec())
+                self.show()
 
     def andrian_congratulate(self):
         subprocess.run(['python', 'Space_man/Congratulation.py'])
