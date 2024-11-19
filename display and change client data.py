@@ -3,7 +3,7 @@ import sys
 import sqlite3
 
 from PyQt6 import uic
-from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtWidgets import QApplication, QMainWindow, QInputDialog
 
 """
     Этот класс предназначен для просмотра и изменения данных клиента
@@ -47,6 +47,27 @@ class WorkWidget(QMainWindow):
         self.client_name.setText(f"{first_name} {last_name}")
         self.client_login.setText(self.client)
         self.client_password.setText(password)
+
+        self.change_login.clicked.connect(self.change_client_login)
+        self.change_password.clicked.connect(self.change_client_password)
+
+    def change_client_login(self):
+        new_client, ok_pressed = QInputDialog.getText(
+            self, "Изменение логина", "Введите новый логин")
+        print(1)
+
+        if ok_pressed:
+            con = sqlite3.connect("DB files/users.db")
+
+            with con:
+                sql = f"""
+                    UPDATE clients SET login = '{new_client}'
+                    WHERE login = '{self.client}'
+                    """
+                con.execute(sql)
+
+    def change_client_password(self):
+        pass
 
 
 def except_hook(cls, exception, traceback):
