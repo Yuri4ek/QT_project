@@ -31,6 +31,15 @@ data = ("folder", "1", "admin",)
 with con:
     con.execute(sql, data)
 
+data = (("игры", "8", "yurik",),
+        ("аккаунты", "10 12", "yurik",),
+        ("общение", "8 9 10 11 12", "yurik",),)
+
+# добавляет папки Юрика
+with con:
+    for small_data in data:
+        con.execute(sql, small_data)
+
 # вывод всех папок
 with con:
     data = con.execute("""SELECT * FROM folders""")
