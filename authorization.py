@@ -33,7 +33,7 @@ class AuthorizationWidget(QDialog):
         # пароль
         flag = False
         for row in data:
-            if row[2] == login and row[3] == password and \
+            if row[3] == login and row[4] == password and \
                     login != "" and password != "":
                 flag = True
                 break

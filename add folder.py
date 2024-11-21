@@ -12,7 +12,7 @@ import subprocess
 """
 
 
-class AddPasswordWidget(QDialog):
+class AddFolderWidget(QDialog):
     def __init__(self):
         super().__init__()
         uic.loadUi("QT_layouts/addFolder.ui", self)
@@ -72,13 +72,18 @@ class AddPasswordWidget(QDialog):
 
                     return
 
+            # находит и записывает id пользователя
+            with con:
+                sql = f"""SELECT id FROM clients WHERE login='{client}' """
+                client_id = list(con.execute(sql))[0][0]
+
             sql = """
                     INSERT INTO folders 
-                    (folder_name, passwords, client_login) 
+                    (folder_name, passwords, client_id) 
                     values(?, ?, ?)
                     """
 
-            data = [folder_name, " ".join(passwords), client]
+            data = [folder_name, " ".join(passwords), client_id]
 
             # добавляет папку в БД
             with con:
@@ -101,12 +106,18 @@ class AddPasswordWidget(QDialog):
         client = self.taking_client()
 
         con = sqlite3.connect("DB files/users.db")
+
+        # находит и записывает id пользователя
+        with con:
+            sql = f"""SELECT id FROM clients WHERE login='{client}' """
+            client_id = list(con.execute(sql))[0][0]
+
         with con:
             passwords_data = list(con.execute("""SELECT * FROM passwords"""))
 
         new_passwords_data = []
         for password_data in passwords_data:
-            if password_data[-1] == client:
+            if password_data[-1] == client_id:
                 new_passwords_data.append(password_data)
 
         return new_passwords_data
@@ -118,6 +129,6 @@ def except_hook(cls, exception, traceback):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = AddPasswordWidget()
+    ex = AddFolderWidget()
     ex.show()
     sys.exit(app.exec())

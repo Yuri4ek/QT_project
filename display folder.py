@@ -74,7 +74,7 @@ class DisplayFolderWidget(QMainWindow):
             if password_data[1] == service:
                 # запись пароля
                 with open("DB files/password", mode="w+") as file:
-                    file.write("\n".join(password_data[1:]))
+                    file.write("\n".join(password_data[1:-1]))
 
                 # вывод пароля
                 subprocess.run(['python', 'display password.py'])

@@ -21,6 +21,13 @@ class WorkWidget(QMainWindow):
         with open("DB files/This moment client.txt", mode="r") as file:
             self.client = file.read()
 
+        con = sqlite3.connect("DB files/users.db")
+
+        # находит и записывает id пользователя
+        with con:
+            sql = f"""SELECT id FROM clients WHERE login='{self.client}' """
+            self.client_id = list(con.execute(sql))[0][0]
+
         # показ текущего клиента
         self.client_button.setText(self.client)
         self.client_button.clicked.connect(self.display_client)
@@ -78,7 +85,7 @@ class WorkWidget(QMainWindow):
 
                     # вывод и сохранение паролей
                     for password_data in passwords_data:
-                        if password_data[-1] == self.client:
+                        if password_data[-1] == self.client_id:
                             self.password_output_safe(password_data)
 
                     self.last_password_data = passwords_data[-1]
@@ -109,7 +116,7 @@ class WorkWidget(QMainWindow):
 
                     # вывод и сохранение папок
                     for folder_data in folders_data:
-                        if folder_data[-1] == self.client:
+                        if folder_data[-1] == self.client_id:
                             self.folder_output_safe(folder_data)
 
                     self.last_folder_data = folders_data[-1]
@@ -133,7 +140,7 @@ class WorkWidget(QMainWindow):
                 password_data = self.taking_passwords_from_DB()[-1]
 
                 if password_data != self.last_password_data:
-                    if password_data[-1] == self.client:
+                    if password_data[-1] == self.client_id:
                         # вывод и сохранение пароля
                         self.password_output_safe(password_data)
 
@@ -148,7 +155,7 @@ class WorkWidget(QMainWindow):
                 folder_data = self.taking_folders_from_DB()[-1]
 
                 if folder_data != self.last_folder_data:
-                    if folder_data[-1] == self.client:
+                    if folder_data[-1] == self.client_id:
                         # вывод и сохранение папки
                         self.folder_output_safe(folder_data)
 
@@ -190,7 +197,7 @@ class WorkWidget(QMainWindow):
             if password_data[1] == service:
                 # запись пароля
                 with open("DB files/password", mode="w+") as file:
-                    file.write("\n".join(password_data[1:]))
+                    file.write("\n".join(password_data[1:-1]))
 
                 # вывод пароля
                 subprocess.run(['python', 'display password.py'])
@@ -235,7 +242,7 @@ class WorkWidget(QMainWindow):
             if folder_data[0] == folder_name:
                 # запись папки
                 with open("DB files/folder", mode="w+") as file:
-                    file.write("\n".join(folder_data))
+                    file.write("\n".join(folder_data[:-1]))
 
                 # вывод папки
                 subprocess.run(['python', 'display folder.py'])

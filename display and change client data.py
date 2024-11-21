@@ -21,14 +21,19 @@ class WorkWidget(QMainWindow):
 
         con = sqlite3.connect("DB files/users.db")
 
+        # находит и записывает id пользователя
+        with con:
+            sql = f"""SELECT id FROM clients WHERE login='{self.client}' """
+            client_id = list(con.execute(sql))[0][0]
+
         with con:
             data = con.execute("""SELECT * FROM clients""")
 
         for client in data:
-            if client[2] == self.client:
-                first_name = client[0]
-                last_name = client[1]
-                password = client[3]
+            if client[0] == client_id:
+                first_name = client[1]
+                last_name = client[2]
+                password = client[4]
 
                 break
 

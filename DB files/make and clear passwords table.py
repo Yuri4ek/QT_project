@@ -16,7 +16,7 @@ with con:
                         service_name,
                         login VARCHAR(20),
                         password VARCHAR(20),
-                        client_login VARCHAR(10)
+                        client_id INTEGER
                     );
                 """)
 
@@ -25,19 +25,31 @@ with con:
     con.execute("""DELETE FROM passwords""")
 
 sql = """INSERT INTO passwords 
-        (service_name, login, password, client_login) values(?, ?, ?, ?)"""
+        (service_name, login, password, client_id) values(?, ?, ?, ?)"""
 
-data = ("service_name", "login", "password", "admin",)
+# находит и записывает id админа
+with con:
+    admin_id = list(con.execute("""
+                                SELECT id FROM clients WHERE login='admin' 
+                    """))[0][0]
+
+data = ("service_name", "login", "password", admin_id,)
 
 # добавляет пароль админа
 with con:
     con.execute(sql, data)
 
-data = (("майнкрафт", "yurik", "1234", "yurik",),
-        ("степик", "yurik", "1234", "yurik",),
-        ("гугл", "yurik", "1234", "yurik",),
-        ("телеграмм", "89083062970", "1234", "yurik",),
-        ("яндекс", "yura09antonov", "1234", "yurik",),)
+# находит и записывает id Юрика
+with con:
+    yurik_id = list(con.execute("""
+                                SELECT id FROM clients WHERE login='yurik' 
+                    """))[0][0]
+
+data = (("майнкрафт", "yurik", "1234", yurik_id,),
+        ("степик", "yurik", "1234", yurik_id,),
+        ("гугл", "yurik", "1234", yurik_id,),
+        ("телеграмм", "89083062970", "1234", yurik_id,),
+        ("яндекс", "yura09antonov", "1234", yurik_id,),)
 
 # добавляет пароли Юрика
 with con:

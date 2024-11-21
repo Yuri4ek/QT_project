@@ -12,6 +12,7 @@ with con:
                 con.execute("""
                     CREATE TABLE clients 
                     (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
                         f_name VARCHAR(20),
                         l_name VARCHAR(20),
                         login VARCHAR(10) UNIQUE,

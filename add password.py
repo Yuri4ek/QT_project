@@ -43,13 +43,18 @@ class AddPasswordWidget(QDialog):
 
                     return
 
+            # находит и записывает id пользователя
+            with con:
+                sql = f"""SELECT id FROM clients WHERE login='{client}' """
+                client_id = list(con.execute(sql))[0][0]
+
             sql = """
                 INSERT INTO passwords 
-                (service_name, login, password, client_login) 
+                (service_name, login, password, client_id) 
                 values(?, ?, ?, ?)
                 """
 
-            data = (service, login, password, client)
+            data = (service, login, password, client_id)
 
             # добавляет пароль в БД
             with con:

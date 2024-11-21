@@ -14,7 +14,7 @@ with con:
                     (
                         folder_name,
                         passwords VARCHAR(1000),
-                        client_login
+                        client_id INTEGER
                     );
                 """)
 
@@ -22,18 +22,48 @@ with con:
 with con:
     con.execute("""DELETE FROM folders""")
 
-sql = """INSERT INTO folders 
-        (folder_name, passwords, client_login) values(?, ?, ?)"""
+# находит и записывает id админа
+with con:
+    admin_id = list(con.execute("""
+                                SELECT id FROM clients WHERE login='admin' 
+                    """))[0][0]
 
-data = ("folder", "1", "admin",)
+sql = f"""SELECT id FROM passwords WHERE client_id='{admin_id}' """
+
+# находит и записывает пароли админа
+with con:
+    admin_passwords_id = " ".join(list(map(str, list(con.execute(sql))[0])))
+
+sql = """INSERT INTO folders 
+        (folder_name, passwords, client_id) values(?, ?, ?)"""
+
+data = ("folder", admin_passwords_id, admin_id,)
 
 # добавляет папку админа
 with con:
     con.execute(sql, data)
 
-data = (("игры", "8", "yurik",),
-        ("аккаунты", "10 12", "yurik",),
-        ("общение", "8 9 10 11 12", "yurik",),)
+# находит и записывает id Юрика
+with con:
+    yurik_id = list(con.execute("""
+                                SELECT id FROM clients WHERE login='yurik' 
+                    """))[0][0]
+
+sql = f"""SELECT id FROM passwords WHERE client_id='{yurik_id}' """
+
+# находит и записывает пароли Юрика
+with con:
+    yurik_passwords_id = []
+    for id in con.execute(sql):
+        yurik_passwords_id.append(str(*id))
+    yurik_passwords_id = " ".join(yurik_passwords_id)
+
+data = (("игры", yurik_passwords_id, yurik_id,),
+        ("аккаунты", yurik_passwords_id, yurik_id,),
+        ("общение", yurik_passwords_id, yurik_id,),)
+
+sql = """INSERT INTO folders 
+        (folder_name, passwords, client_id) values(?, ?, ?)"""
 
 # добавляет папки Юрика
 with con:
