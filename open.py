@@ -37,6 +37,13 @@ class OpenWidget(QMainWindow):
         # добавляет иконку приложения
         app.setWindowIcon(QIcon("Presentation files/logo.png"))
 
+    def resizeEvent(self, event):
+        geometry = self.geometry()
+        x, y = geometry.width(), geometry.height()
+
+        self.registration.move(x // 2 - 100, y // 2 - 70)
+        self.authorization.move(x // 2 - 100, y // 2 + 8)
+
     def open_registration(self):
         subprocess.run(['python', 'registration.py'])
 
