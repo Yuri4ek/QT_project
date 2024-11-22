@@ -4,6 +4,7 @@ import sqlite3
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QDialog
+from PyQt6.QtGui import QIcon
 
 import subprocess
 
@@ -18,6 +19,9 @@ class AddPasswordWidget(QDialog):
         uic.loadUi("QT_layouts/addPassword.ui", self)
 
         self.add_button.clicked.connect(self.safe_password)
+
+        # добавляет иконку приложения
+        app.setWindowIcon(QIcon("Presentation files/logo.png"))
 
     def safe_password(self):
         service = self.name_edit.text()

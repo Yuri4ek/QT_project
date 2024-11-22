@@ -2,6 +2,7 @@ import sys
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow
+from PyQt6.QtGui import QIcon
 
 import subprocess
 
@@ -32,6 +33,9 @@ class OpenWidget(QMainWindow):
         QMainWindow { background-image:url(Space_man/phon.jpg); 
         background-repeat: no-repeat; background-position: center; } 
                         """)
+
+        # добавляет иконку приложения
+        app.setWindowIcon(QIcon("Presentation files/logo.png"))
 
     def open_registration(self):
         subprocess.run(['python', 'registration.py'])

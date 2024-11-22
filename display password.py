@@ -2,6 +2,7 @@ import sys
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QDialog
+from PyQt6.QtGui import QIcon
 
 """
     Этот класс предназначен для показа данных пароля
@@ -21,6 +22,9 @@ class DisplayPasswordWidget(QDialog):
         self.service.setText(f"Сервис: {data[0]}")
         self.login.setText(f"Логин: {data[1]}")
         self.password.setText(f"Пароль: {data[2]}")
+
+        # добавляет иконку приложения
+        app.setWindowIcon(QIcon("Presentation files/logo.png"))
 
 
 def except_hook(cls, exception, traceback):

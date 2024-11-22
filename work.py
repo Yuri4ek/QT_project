@@ -4,6 +4,7 @@ import sqlite3
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout
+from PyQt6.QtGui import QIcon
 
 import subprocess
 
@@ -59,6 +60,9 @@ class WorkWidget(QMainWindow):
                 QMainWindow { background-image:url(Space_man/phon.jpg); 
                 background-repeat: no-repeat; background-position: center; } 
                                 """)
+
+        # добавляет иконку приложения
+        app.setWindowIcon(QIcon("Presentation files/logo.png"))
 
     def display_client(self):
         subprocess.run(['python', 'display and change client data.py'])

@@ -2,6 +2,7 @@ import sys
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QDialog
+from PyQt6.QtGui import QIcon
 
 """
     Этот класс предназначен для индивидуальных виджетов ошибок
@@ -32,6 +33,9 @@ class ErrorWidget(QDialog):
             self.error_label.setText(text)
         except:
             pass
+
+        # добавляет иконку приложения
+        app.setWindowIcon(QIcon("Presentation files/logo.png"))
 
     def exit(self):
         sys.exit(app.exec())

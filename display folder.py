@@ -4,6 +4,7 @@ import sqlite3
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton
+from PyQt6.QtGui import QIcon
 
 import subprocess
 
@@ -49,6 +50,9 @@ class DisplayFolderWidget(QMainWindow):
                 QMainWindow { background-image:url(Space_man/phon.jpg); 
                 background-repeat: no-repeat; background-position: center; } 
                                 """)
+
+        # добавляет иконку приложения
+        app.setWindowIcon(QIcon("Presentation files/logo.png"))
 
     def password_output(self, password):
         # вывод пароля

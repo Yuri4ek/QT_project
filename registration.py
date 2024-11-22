@@ -4,6 +4,7 @@ import sqlite3
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QDialog
+from PyQt6.QtGui import QIcon
 
 import subprocess
 
@@ -18,6 +19,9 @@ class RegistrationWidget(QDialog):
         uic.loadUi("QT_layouts/registrationWindow.ui", self)
 
         self.make_button.clicked.connect(self.make_account)
+
+        # добавляет иконку приложения
+        app.setWindowIcon(QIcon("Presentation files/logo.png"))
 
     def make_account(self):
         first_name = self.fname_edit.text()

@@ -4,6 +4,7 @@ import sqlite3
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QDialog
+from PyQt6.QtGui import QIcon
 
 import subprocess
 
@@ -19,6 +20,9 @@ class AuthorizationWidget(QDialog):
         uic.loadUi("QT_layouts/authorizationWindow.ui", self)
 
         self.entrance_button.clicked.connect(self.open_account)
+
+        # добавляет иконку приложения
+        app.setWindowIcon(QIcon("Presentation files/logo.png"))
 
     def open_account(self):
         login = self.login_edit.text()

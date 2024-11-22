@@ -4,6 +4,7 @@ from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtGui import QPixmap
 from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QIcon
 
 """
     Этот класс предназначен для поздравления нашего земляка, второго косманавта,
@@ -27,6 +28,9 @@ class SpaceMan(QMainWindow):
                 "поколение все его достижения и подвиги.")
         self.congratulation.setText(text)
         self.congratulation.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        # добавляет иконку приложения
+        app.setWindowIcon(QIcon("Presentation files/logo.png"))
 
 
 def except_hook(cls, exception, traceback):

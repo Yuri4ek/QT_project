@@ -4,6 +4,7 @@ import sqlite3
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QMainWindow, QInputDialog
+from PyQt6.QtGui import QIcon
 
 """
     Этот класс предназначен для просмотра и изменения данных клиента
@@ -55,6 +56,9 @@ class WorkWidget(QMainWindow):
 
         self.change_login.clicked.connect(self.change_client_login)
         self.change_password.clicked.connect(self.change_client_password)
+
+        # добавляет иконку приложения
+        app.setWindowIcon(QIcon("Presentation files/logo.png"))
 
     def change_client_login(self):
         new_client, ok_pressed = QInputDialog.getText(

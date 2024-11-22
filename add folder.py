@@ -4,6 +4,7 @@ import sqlite3
 
 from PyQt6 import uic
 from PyQt6.QtWidgets import QApplication, QDialog, QCheckBox
+from PyQt6.QtGui import QIcon
 
 import subprocess
 
@@ -22,6 +23,9 @@ class AddFolderWidget(QDialog):
         self.create_checkBoxes()
 
         self.add_button.clicked.connect(self.add_folder)
+
+        # добавляет иконку приложения
+        app.setWindowIcon(QIcon("Presentation files/logo.png"))
 
     def create_checkBoxes(self):
         passwords_data = self.taking_passwords_from_DB()
