@@ -3,8 +3,9 @@ import sys
 import sqlite3
 
 from PyQt6 import uic
-from PyQt6.QtWidgets import QApplication, QMainWindow, QInputDialog
-from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import (QApplication, QMainWindow, QInputDialog,
+                             QFileDialog)
+from PyQt6.QtGui import QIcon, QPixmap
 
 """
     Этот класс предназначен для просмотра и изменения данных клиента
@@ -56,6 +57,7 @@ class WorkWidget(QMainWindow):
 
         self.change_login.clicked.connect(self.change_client_login)
         self.change_password.clicked.connect(self.change_client_password)
+        self.change_image.clicked.connect(self.change_client_image)
 
         # добавляет иконку приложения
         app.setWindowIcon(QIcon("Presentation files/logo.png"))
@@ -95,6 +97,13 @@ class WorkWidget(QMainWindow):
                 con.execute(sql)
 
             self.client_password.setText(new_password)
+
+    def change_client_image(self):
+        fname = QFileDialog.getOpenFileName(self, 'Выбрать картинку', '')[0]
+
+        pixmap = QPixmap(fname)
+
+        self.image_label.setPixmap(pixmap)
 
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
