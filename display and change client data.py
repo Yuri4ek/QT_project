@@ -82,6 +82,8 @@ class WorkWidget(QMainWindow):
 
             self.client_login.setText(new_client)
 
+            self.client = new_client
+
     def change_client_password(self):
         new_password, ok_pressed = QInputDialog.getText(
             self, "Изменение пароля", "Введите новый пароль")
