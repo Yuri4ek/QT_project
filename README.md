@@ -19,6 +19,8 @@
 P.S.: Я очень чту успехи наших земляков и из-за этого в честь года
 Космонавтики я добавил зведную тему для моего проекта 🚀🌌.
 
+Видеоролик про мой проект https://lumen5.com/user/dinourski/passwords-shield-app-ood8n/.
+
 #### Запуск программы:
 
 1. Установить дополнения из файла requirements.txt. Можно сделать это через
@@ -45,6 +47,8 @@ a folder where it is convenient to view your passwords.
 P.S.: I really honor the successes of our fellow countrymen and because of
 this, in honor of the year
 Cosmonautics, I added a star theme for my project 🚀🌌.
+
+A video about my project https://lumen5.com/user/dinourski/passwords-shield-app-ood8n/.
 
 #### Launching the program:
 
