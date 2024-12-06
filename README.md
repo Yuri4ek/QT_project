@@ -28,7 +28,7 @@ P.S.: Я очень чту успехи наших земляков и из-за
 
 1. Установить дополнения из файла requirements.txt. Можно сделать это через
    терминал с помощью команды "pip install -r requirements.txt".
-2. В папке с проектом запустить файл open.exe.
+2. В папке с проектом запустить файл PS.exe.
 3. Пользоваться с наслаждением 💖
 
 ### English version:
@@ -59,8 +59,8 @@ The presentation is located in the Presentation files.
 #### Launching the program:
 
 1. Install the extension from the file requirements.txt . You can do this via
-   terminal using the "pip install -rrequirements.txt".
-2. Run the file in the project folder open.exe.
+   terminal using the "pip install -r requirements.txt".
+2. Run the file in the project folder PS.exe.
 3. Enjoy it with pleasure 💖
 
 ## ТЗ:
